@@ -9,7 +9,12 @@ const ExpenseList = (props) => {
 
   const FilterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
+    
   };
+
+    const filteredExpenses = props.item.filter(expense => {
+      return expense.date.getFullYear().toString() === filteredYear
+    })
 
   return (
     <div>
@@ -17,9 +22,12 @@ const ExpenseList = (props) => {
         <ExpenseFilter
           selected={filteredYear}
           onChangeFilter={FilterChangeHandler}
+
         />
-        {props.item.map((expense) => (
+        {filteredExpenses.map((expense) => (
           <ExpenseItem
+          key = {expense.id}
+          // Always add a Key when mapping out an array of items in react
             title={expense.title}
             date={expense.date}
             amount={expense.amount}
