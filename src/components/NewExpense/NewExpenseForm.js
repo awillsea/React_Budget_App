@@ -22,7 +22,7 @@ const SubmitHandler = (event) => {
 
     const NewExpenseData = {
         title: enteredTitle,
-        amount: enteredAmount,
+        amount: +enteredAmount,
         date: new Date(enteredDate)
     };
     props.onSaveNewExpenseDate(NewExpenseData);
