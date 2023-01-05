@@ -5,6 +5,7 @@ const NewExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount,setEnteredAmount] = useState('');
     const [enteredDate,setEnteredDate] = useState('');
+    const [displayValue, setDisplayValue] = useState('false');
     //enter... (the first variable), think of it as a variable holding the title,amount,date,etc... for each update. so always holding the "current" value
     const TitleEventHandler = (event) => {
         setEnteredTitle(event.target.value);
@@ -37,27 +38,46 @@ const SubmitHandler = (event) => {
     setEnteredAmount('');
     setEnteredDate('');
 }
+
+const flipShowFormDisplay = () =>{
+
+
+  setDisplayValue(!displayValue);
+  console.log(displayValue);
+
+}
+let FormDisplay = <form onSubmit={SubmitHandler}>
+<div className="new-expense__controls">
+  <div className="new-expense__control">
+    <label>Title</label>
+    <input type='text' value={enteredTitle} onChange={TitleEventHandler} />
+  </div>
+  <div className="new-expense__control">
+    <label>Amount</label>
+    <input type='number' value={enteredAmount} min="0.01" step="0.01" onChange={AmountEventHandler}/>
+    </div>
+  <div className="new-expense__control">
+    <label>Date</label>
+    <input type='date' value={enteredDate} min="2019-01-01" max="2023-12-31" onChange={DateEventHandler}/>
+  </div>
+</div>
+<div className="new-expense__actions">
+  <button type="submit" >Save New Expense</button>
+<button onClick={flipShowFormDisplay}> Cancel </button>
+
+</div>
+
+</form>
+
+if(displayValue === false){
+  FormDisplay = <button onClick={flipShowFormDisplay}>Add New Expense</button>
+}
   return (
-    <form onSubmit={SubmitHandler}>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
-          <label>Title</label>
-          <input type='text' value={enteredTitle} onChange={TitleEventHandler} />
-        </div>
-        <div className="new-expense__control">
-          <label>Amount</label>
-          <input type='number' value={enteredAmount} min="0.01" step="0.01" onChange={AmountEventHandler}/>
-          </div>
-        <div className="new-expense__control">
-          <label>Date</label>
-          <input type='date' value={enteredDate} min="2019-01-01" max="2023-12-31" onChange={DateEventHandler}/>
-        </div>
-      </div>
-      <div className="new-expense__actions">
-        <button type="submit" >Add Expense</button>
-      </div>
-    </form>
-  );
+    <div>
+    {FormDisplay}
+  
+    </div>
+    );
 };
 
 export default NewExpenseForm;

@@ -1,8 +1,8 @@
 import Card from "../UI/Card";
 import ExpenseFilter from "./ExpenseFilter";
-import ExpenseItem from "./ExpenseItem";
 import "./ExpenseList.css";
 import { useState } from "react";
+import ExpenseConditional from "./ExpenseConditional";
 
 const ExpenseList = (props) => {
   const [filteredYear, setFilteredYear] = useState("2020");
@@ -16,6 +16,8 @@ const ExpenseList = (props) => {
       return expense.date.getFullYear().toString() === filteredYear
     })
 
+    
+
   return (
     <div>
       <Card className="expenses">
@@ -24,15 +26,7 @@ const ExpenseList = (props) => {
           onChangeFilter={FilterChangeHandler}
 
         />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem
-          key = {expense.id}
-          // Always add a Key when mapping out an array of items in react
-            title={expense.title}
-            date={expense.date}
-            amount={expense.amount}
-          />
-        ))}
+        <ExpenseConditional item={filteredExpenses} />
       </Card>
     </div>
   );

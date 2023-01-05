@@ -1,0 +1,9 @@
+.expenses-cond {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .expenses-cond__fallback {
+    color: white;
+    text-align: center;
+  }
