@@ -1,6 +1,16 @@
 import "./NewExpense.css";
 import NewExpenseForm from "./NewExpenseForm";
+import { useState } from "react";
 const NewExpense = (props) => {
+    const [displayValue, setDisplayValue] = useState(false);
+    const flipShowFormDisplay = () =>{
+
+
+  setDisplayValue(!displayValue);
+  console.log(displayValue);
+
+}
+
     const SaveNewDataHandler = (SubmittedExpenseData) =>{
         const expenseData = {
             ...SubmittedExpenseData,
@@ -10,7 +20,8 @@ const NewExpense = (props) => {
 } 
  return (
     <div className="new-expense">
-        <NewExpenseForm onSaveNewExpenseDate={SaveNewDataHandler}/>
+ {!displayValue &&  <button onClick={flipShowFormDisplay}>Add New Expense</button>}
+        {displayValue && <NewExpenseForm onSaveNewExpenseDate={SaveNewDataHandler} onCancel={flipShowFormDisplay}/>}
     </div>
   );
 };

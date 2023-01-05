@@ -5,7 +5,6 @@ const NewExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount,setEnteredAmount] = useState('');
     const [enteredDate,setEnteredDate] = useState('');
-    const [displayValue, setDisplayValue] = useState('false');
     //enter... (the first variable), think of it as a variable holding the title,amount,date,etc... for each update. so always holding the "current" value
     const TitleEventHandler = (event) => {
         setEnteredTitle(event.target.value);
@@ -28,7 +27,7 @@ const SubmitHandler = (event) => {
     };
     props.onSaveNewExpenseDate(NewExpenseData);
     //
-    //^^ created a prop in the parent component, this case its newExpense.js . that prop is refrencing a function in that component.
+    //^^ created a prop in the parent component, this case its newExpense.js . that prop is referencing a function in that component.
     // so i order to save the info from the child to the parent. we are calling the prop here which in this case is a function
     // that function is taking in a the NewExpenseData variable from above as a parameter.
     // then back in NewExpense once the function is called with this param it is taking all the info from this object
@@ -39,14 +38,10 @@ const SubmitHandler = (event) => {
     setEnteredDate('');
 }
 
-const flipShowFormDisplay = () =>{
 
-
-  setDisplayValue(!displayValue);
-  console.log(displayValue);
-
-}
-let FormDisplay = <form onSubmit={SubmitHandler}>
+  return (
+    
+    <form onSubmit={SubmitHandler}>
 <div className="new-expense__controls">
   <div className="new-expense__control">
     <label>Title</label>
@@ -63,20 +58,9 @@ let FormDisplay = <form onSubmit={SubmitHandler}>
 </div>
 <div className="new-expense__actions">
   <button type="submit" >Save New Expense</button>
-<button onClick={flipShowFormDisplay}> Cancel </button>
-
+  <button type="button" onClick={props.onCancel} >Cancel</button>
 </div>
-
 </form>
-
-if(displayValue === false){
-  FormDisplay = <button onClick={flipShowFormDisplay}>Add New Expense</button>
-}
-  return (
-    <div>
-    {FormDisplay}
-  
-    </div>
     );
 };
 
